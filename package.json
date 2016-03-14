@@ -1,0 +1,28 @@
+{
+  "name": "the-social-media-invasion",
+  "version": "0.0.1",
+  "description": "Interactive infographic visualizing the growth of social media.",
+  "main": "webpack.config.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ArjanJ/the-social-media-invasion.git"
+  },
+  "keywords": [
+    "social",
+    "media",
+    "javascript",
+    "css",
+    "animation",
+    "webpack",
+    "es6"
+  ],
+  "author": "ArjanJ <hello@arjanjassal.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ArjanJ/the-social-media-invasion/issues"
+  },
+  "homepage": "https://github.com/ArjanJ/the-social-media-invasion#readme"
+}
