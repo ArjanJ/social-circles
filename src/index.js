@@ -9,8 +9,8 @@ import './assets/css/index.scss';
 import dataJSON from 'file!./data/data.json';
 
 const Api = () => {
-	const getData = () => {
-		return new Promise((resolve, reject) => {
+	const getData = () =>
+		new Promise((resolve, reject) => {
 			fetch(dataJSON)
 				.then((response) => {
 					if (response.status >= 200 && response.status < 300) {
@@ -25,7 +25,6 @@ const Api = () => {
 				.then(response => resolve(response))
 				.catch(error => console.error(error));
 		});
-	};
 
 	return {
 		getData
@@ -42,7 +41,7 @@ const Country = (name, networks) => {
 	};
 };
 
-const DOMNode = (tag, attributes) => {
+const createDOMNode = (tag, attributes) => {
 	const element = document.createElement(tag);
 	attributes.forEach((attr) => {
 		element.setAttribute(attr.name, attr.value);
@@ -51,48 +50,52 @@ const DOMNode = (tag, attributes) => {
 	return element;
 };
 
-const renderNodes = (nodes) => {
-	const parent = document.querySelector('.app');
-	nodes.forEach(node => parent.appendChild(node));
-};
-
 const App = () => {
 	const state = {
 		countries: []
 	};
 
-	const DOMStuff = (callback) => {
+	const createDOMElements = (callback) => {
 		const countryNodes = state.countries.map((country) => {
-			return DOMNode('div', [{
+			return createDOMNode('div', [{
 				name: 'id',
 				value: country.getName()
 			}]);
 		});
 
-		callback(countryNodes);
+		callback(countryNodes, '.app');
 	};
 
-	// const renderNodes = (nodes) => {
-	// 	const parent = document.querySelector('.app');
-	// 	nodes.forEach(node => parent.appendChild(node));
-	// };
+	const renderDOMElements = (nodes, parent) => {
+		const el = document.querySelector(parent);
+		nodes.forEach(node => el.appendChild(node));
+	};
+
+	const getData = () =>
+		new Promise((resolve, reject) => {
+			Api()
+				.getData()
+				.then((response) => {
+					const data = response.data;
+					data.forEach((item) => {
+						state.countries.push(Country(item.name, item.networks));
+					});
+
+					resolve(state.countries);
+				})
+				.catch(error => console.error(error));
+		});
 
 	const init = () => {
-		Api()
-			.getData()
+		getData()
 			.then((response) => {
-				const data = response.data;
-				data.forEach((item) => {
-					state.countries.push(Country(item.name, item.networks));
-				});
+				createDOMElements(renderDOMElements);
 			});
 	};
 
 	return {
-		init,
-		DOMStuff
+		init
 	};
 };
 
 App().init();
-App().DOMStuff(renderNodes);
