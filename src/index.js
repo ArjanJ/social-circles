@@ -50,15 +50,16 @@ const App = () => {
 		`<div>
 			<div class="earth">
 				<div class="earth__circle"></div>
-				<div class="earth__map"></div>
-			</div>
-			<div class="countries">
-				${state.countries.map((country) =>
-					`<div
-						id="${country.getName().replace(/\ /g, '-')}"
-						class="country"
-						style="transform: scale(${country.getNetwork(state.network).totalUsers / 100000000})">
-					</div>`).join('')}
+				<div class="earth__map">
+					<div class="countries">
+						${state.countries.map((country) =>
+							`<div
+								id="${country.getName().replace(/\ /g, '-')}"
+								class="country"
+								style="transform: scale(${country.getNetwork(state.network).totalUsers / 100000000})">
+							</div>`).join('')}
+					</div>
+				</div>
 			</div>
 			<div class="controls">
 				<button class="controls__button" type="button" data-network="facebook">Facebook</button>
