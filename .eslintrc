@@ -4,6 +4,7 @@
 		"indent": [2, "tab"],
 		"comma-dangle": 0,
 		"no-unused-vars": [1, {"vars": "local", "args": "none"}],
-		"no-else-return": 0
+		"no-else-return": 0,
+		"new-cap": 0
 	}
 }
