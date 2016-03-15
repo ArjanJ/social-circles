@@ -3,6 +3,8 @@ $earth-width: 			$earth-height;
 $earth-map-width: 	1280px;
 $earth-blue: 				#2e79ba;
 
+@import "./positions";
+
 @mixin transform-center() {
 	position: absolute;
 	top: 50%;
@@ -52,7 +54,10 @@ $earth-blue: 				#2e79ba;
 }
 
 .countries {
-	// display: none;
+	display: block;
+	position: absolute;
+	top: 0;
+	left: 50%;
 }
 
 .country {
