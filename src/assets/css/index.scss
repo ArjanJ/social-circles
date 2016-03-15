@@ -12,11 +12,15 @@ $earth-blue: 				#2e79ba;
 
 .earth {
 	$p: &;
-	@include transform-center;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	margin: (-$earth-height / 2) (0) (0) (-$earth-width / 2);
 	border-radius: 50%;
 	overflow: hidden;
 	width: $earth-width;
 	height: $earth-height;
+	-webkit-mask-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAA5JREFUeNpiYGBgAAgwAAAEAAGbA+oJAAAAAElFTkSuQmCC);
 
 	&__circle {
 		position: absolute;
