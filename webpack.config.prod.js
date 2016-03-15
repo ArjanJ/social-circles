@@ -1,6 +1,6 @@
 const path 								= require('path');
-const Webpack 						= require('webpack');
-const HtmlWebpackPlugin 	= require('html-webpack-plugin');
+const webpack 						= require('webpack');
+const htmlWebpackPlugin 	= require('html-webpack-plugin');
 
 module.exports = {
 	devtool: 'source-map',
@@ -18,7 +18,7 @@ module.exports = {
       },
     }),
     new webpack.optimize.OccurenceOrderPlugin(),
-		new HtmlWebpackPlugin({
+		new htmlWebpackPlugin({
 	    template: './src/index.html'
 	  })
 	],
@@ -35,6 +35,13 @@ module.exports = {
 			test: /\.js$/,
 			loaders: ['babel'],
 			include: path.join(__dirname, 'src')
-		}]
+		}, {
+      test: /\.(jpe?g|png|gif|svg)$/i,
+      loaders: [
+        'url?limit=8192',
+        'img'
+      ],
+      exclude: /node_modules/
+	  }]
 	}
 };

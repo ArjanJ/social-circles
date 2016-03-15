@@ -1,0 +1,49 @@
+$earth-height: 			525px;
+$earth-width: 			$earth-height;
+$earth-map-width: 	1280px;
+$earth-blue: 				#2e79ba;
+
+@mixin transform-center() {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+.earth {
+	display: none;
+	$p: &;
+	@include transform-center;
+	border-radius: 50%;
+	overflow: hidden;
+	width: $earth-width;
+	height: $earth-height;
+
+	&__circle {
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		background: $earth-blue;
+	}
+
+	&__map {
+		width: ($earth-map-width * 2);
+		height: $earth-height;
+		background: url('../img/map.svg') center repeat-x;
+		transform: translate3d(-50%, 0, 0);
+		animation: map-rotation 20s linear infinite;
+		will-change: transform;
+		backface-visibility: hidden;
+	}
+
+	&:hover {
+
+		#{$p}__map {
+			animation-play-state: paused;
+		}
+	}
+}
+
+@keyframes map-rotation {
+	to { transform: translate3d(0, 0, 0); }
+}
