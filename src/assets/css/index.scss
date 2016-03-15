@@ -11,7 +11,6 @@ $earth-blue: 				#2e79ba;
 }
 
 .earth {
-	display: none;
 	$p: &;
 	@include transform-center;
 	border-radius: 50%;
@@ -31,7 +30,7 @@ $earth-blue: 				#2e79ba;
 		height: $earth-height;
 		background: url('../img/map.svg') center repeat-x;
 		transform: translate3d(-50%, 0, 0);
-		animation: map-rotation 20s linear infinite;
+		// animation: map-rotation 20s linear infinite;
 		will-change: transform;
 		backface-visibility: hidden;
 	}
