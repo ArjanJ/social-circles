@@ -5,70 +5,33 @@ if (module.hot) {
 // Load CSS
 import './assets/css/index.scss';
 
-// Load data file
-import dataJSON from 'file!./data/data.json';
+// Api Module
+import Api from './Api';
 
-const Api = () => {
-	const getData = () =>
-		new Promise((resolve, reject) => {
-			fetch(dataJSON)
-				.then((response) => {
-					if (response.status >= 200 && response.status < 300) {
-						return response;
-					} else {
-						const error = new Error(response.statusText);
-						error.response = response;
-						throw error;
-					}
-				})
-				.then(response => response.json())
-				.then(response => resolve(response))
-				.catch(error => console.error(error));
-		});
+// Country Model
+import Country from './Country';
 
-	return {
-		getData
-	};
-};
-
-const Country = (name, networks) => {
-	const getName = () => name;
-	const getNetwork = (network) => networks[network];
-
-	return {
-		getName,
-		getNetwork
-	};
-};
-
-const createDOMNode = (tag, attributes) => {
-	const element = document.createElement(tag);
-	attributes.forEach((attr) => {
-		element.setAttribute(attr.name, attr.value);
-	});
-
-	return element;
-};
-
+// App Module
 const App = () => {
 	const state = {
 		countries: []
 	};
 
-	const createDOMElements = (callback) => {
-		const countryNodes = state.countries.map((country) => {
-			return createDOMNode('div', [{
-				name: 'id',
-				value: country.getName()
-			}]);
-		});
+	const render = () =>
+		`<div>
+			<div class="earth">
+				<div class="earth__circle"></div>
+				<div class="earth__map"></div>
+			</div>
+			<div class="countries">
+				${state.countries.map((country) => {
+					return `<div id=${country.getName()} class="country"></div>`;
+				}).join('')}
+			</div>
+		</div>`;
 
-		callback(countryNodes, '.app');
-	};
-
-	const renderDOMElements = (nodes, parent) => {
-		const el = document.querySelector(parent);
-		nodes.forEach(node => el.appendChild(node));
+	const mount = () => {
+		document.querySelector('.app').innerHTML = render();
 	};
 
 	const getData = () =>
@@ -76,11 +39,7 @@ const App = () => {
 			Api()
 				.getData()
 				.then((response) => {
-					const data = response.data;
-					data.forEach((item) => {
-						state.countries.push(Country(item.name, item.networks));
-					});
-
+					state.countries = response.data.map(item => Country(item.name, item.networks));
 					resolve(state.countries);
 				})
 				.catch(error => console.error(error));
@@ -88,9 +47,8 @@ const App = () => {
 
 	const init = () => {
 		getData()
-			.then((response) => {
-				createDOMElements(renderDOMElements);
-			});
+			.then(response => mount())
+			.catch(error => console.error(error));
 	};
 
 	return {
@@ -98,4 +56,6 @@ const App = () => {
 	};
 };
 
-App().init();
+document.addEventListener('DOMContentLoaded', () => {
+	App().init();
+});
