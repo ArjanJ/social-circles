@@ -14,7 +14,36 @@ import Country from './Country';
 // App Module
 const App = () => {
 	const state = {
-		countries: []
+		countries: [],
+		network: 'facebook'
+	};
+
+	const setState = (newState) => {
+		Object.assign(state, newState);
+	};
+
+	const buttonClick = (button) => {
+		const network = button.getAttribute('data-network');
+		setState({ network });
+		animateCountry();
+	};
+
+	const registerEventListeners = () => {
+		document
+			.querySelector('.app')
+			.addEventListener('click', (event) => {
+				if (event.target && event.target.matches('button.controls__button')) {
+					buttonClick(event.target);
+				}
+			});
+	};
+
+	const animateCountry = () => {
+		const countries = Array.from(document.querySelectorAll('.country'));
+		state.countries.map((country, i) =>
+			countries[i].style.transform = `scale(
+				${country.getNetwork(state.network).totalUsers / 100000000}
+			)`);
 	};
 
 	const render = () =>
@@ -24,14 +53,24 @@ const App = () => {
 				<div class="earth__map"></div>
 			</div>
 			<div class="countries">
-				${state.countries.map((country) => {
-					return `<div id=${country.getName()} class="country"></div>`;
-				}).join('')}
+				${state.countries.map((country) =>
+					`<div
+						id="${country.getName().replace(/\ /g, '-')}"
+						class="country"
+						style="transform: scale(${country.getNetwork(state.network).totalUsers / 100000000})">
+					</div>`).join('')}
+			</div>
+			<div class="controls">
+				<button class="controls__button" type="button" data-network="facebook">Facebook</button>
+				<button class="controls__button" type="button" data-network="instagram">Instgram</button>
+				<button class="controls__button" type="button" data-network="twitter">Twitter</button>
 			</div>
 		</div>`;
 
 	const mount = () => {
-		document.querySelector('.app').innerHTML = render();
+		document
+			.querySelector('.app')
+			.innerHTML = render();
 	};
 
 	const getData = () =>
@@ -46,6 +85,7 @@ const App = () => {
 		});
 
 	const init = () => {
+		registerEventListeners();
 		getData()
 			.then(response => mount())
 			.catch(error => console.error(error));

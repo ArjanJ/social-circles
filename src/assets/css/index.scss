@@ -17,10 +17,10 @@ $earth-blue: 				#2e79ba;
 	top: 50%;
 	margin: (-$earth-height / 2) (0) (0) (-$earth-width / 2);
 	border-radius: 50%;
-	overflow: hidden;
+	// overflow: hidden;
 	width: $earth-width;
 	height: $earth-height;
-	-webkit-mask-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAA5JREFUeNpiYGBgAAgwAAAEAAGbA+oJAAAAAElFTkSuQmCC);
+	// -webkit-mask-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAA5JREFUeNpiYGBgAAgwAAAEAAGbA+oJAAAAAElFTkSuQmCC);
 
 	&__circle {
 		position: absolute;
@@ -49,4 +49,24 @@ $earth-blue: 				#2e79ba;
 
 @keyframes map-rotation {
 	to { transform: translate3d(0, 0, 0); }
+}
+
+.countries {
+	// display: none;
+}
+
+.country {
+	width: 100px;
+	height: 100px;
+	background: tomato;
+	border-radius: 50%;
+	position: absolute;
+	box-shadow: 0 2px 4px rgba(black, 0.3);
+	opacity: 0.8;
+	transition: all .2s ease;
+}
+
+.controls {
+	position: absolute;
+	right: 0;
 }
