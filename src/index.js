@@ -54,14 +54,20 @@ const App = () => {
 
 	const buttonClick = (button) => {
 		const network = button.getAttribute('data-network');
+		const buttons = Array.from(document.querySelectorAll('.controls__button'));
+
+		buttons.map(x => x.classList.remove('controls__button--active'));
+		button.classList.add('controls__button--active');
+
 		setState({ network });
 		animateCountry();
 	};
 
 	const render = () =>
 		`<div>
+			<h1 class="title">The Social Media Invasion</h1>
 			<div class="earth">
-				<div class="earth__circle"></div>
+				<div class="earth__ocean"></div>
 				<div class="earth__map">
 					<div class="countries">
 						${state.countries.map((country) =>
@@ -77,7 +83,7 @@ const App = () => {
 			</div>
 			<div class="controls">
 				<button class="controls__button" type="button" data-network="facebook">Facebook</button>
-				<button class="controls__button" type="button" data-network="instagram">Instgram</button>
+				<button class="controls__button" type="button" data-network="instagram">Instagram</button>
 				<button class="controls__button" type="button" data-network="twitter">Twitter</button>
 			</div>
 		</div>`;
