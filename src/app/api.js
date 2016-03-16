@@ -1,5 +1,5 @@
 // Load data file
-import dataJSON from 'file!./data/data.json';
+import dataJSON from 'file!../data/data.json';
 
 const Api = () => {
 	const getData = () =>

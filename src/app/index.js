@@ -3,7 +3,7 @@ if (module.hot) {
 }
 
 // Load CSS
-import './assets/css/index.scss';
+import '../assets/css/index.scss';
 
 // Api Module
 import Api from './Api';
