@@ -1,5 +1,5 @@
 const path 								= require('path');
-const webpack 						= require('webpack');
+const webpack							= require('webpack');
 const htmlWebpackPlugin 	= require('html-webpack-plugin');
 const autoprefixer 				= require('autoprefixer');
 
@@ -7,7 +7,7 @@ module.exports = {
 	devtool: 'cheap-eval-source-map',
 	entry: [
 		'webpack-dev-server/client?http://localhost:8080',
-    'webpack/hot/dev-server',
+		'webpack/hot/dev-server',
 		'./src/index'
 	],
 	output: {
@@ -17,11 +17,11 @@ module.exports = {
 	plugins: [
 		new webpack.HotModuleReplacementPlugin(),
 		new htmlWebpackPlugin({
-	    template: './src/index.html'
-	  }),
-	  new webpack.ProvidePlugin({
-      'fetch': 'imports?this=>global!exports?global.fetch!whatwg-fetch'
-    })
+			template: './src/index.html'
+		}),
+		new webpack.ProvidePlugin({
+			'fetch': 'imports?this=>global!exports?global.fetch!whatwg-fetch'
+		})
 	],
 	module: {
 		preLoaders: [{
@@ -37,19 +37,19 @@ module.exports = {
 			loaders: ['babel'],
 			include: path.join(__dirname, 'src')
 		}, {
-      test: /\.(jpe?g|png|gif|svg)$/i,
-      loaders: [
-        'url?limit=8192',
-        'img'
-      ],
-      exclude: /node_modules/
-	  }]
+			test: /\.(jpe?g|png|gif|svg)$/i,
+			loaders: [
+				'url?limit=8192',
+				'img'
+			],
+			exclude: /node_modules/
+		}]
 	},
 	devServer: {
-    contentBase: './dist',
-    hot: true
-  },
-  postcss: function() {
-  	return [autoprefixer]
-  }
+		contentBase: './dist',
+		hot: true
+	},
+	postcss: function() {
+		return [autoprefixer]
+	}
 };

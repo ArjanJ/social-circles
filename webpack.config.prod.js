@@ -1,5 +1,5 @@
 const path 								= require('path');
-const webpack 						= require('webpack');
+const webpack							= require('webpack');
 const htmlWebpackPlugin 	= require('html-webpack-plugin');
 const autoprefixer 				= require('autoprefixer');
 
@@ -14,17 +14,17 @@ module.exports = {
 	},
 	plugins: [
 		new webpack.ProvidePlugin({
-		  'fetch': 'imports?this=>global!exports?global.fetch!whatwg-fetch'
+			'fetch': 'imports?this=>global!exports?global.fetch!whatwg-fetch'
 		}),
 		new webpack.optimize.UglifyJsPlugin({
-      compressor: {
-        warnings: false,
-      },
-    }),
-    new webpack.optimize.OccurenceOrderPlugin(),
+			compressor: {
+				warnings: false,
+			},
+		}),
+		new webpack.optimize.OccurenceOrderPlugin(),
 		new htmlWebpackPlugin({
-	    template: './src/index.html'
-	  })
+			template: './src/index.html'
+		})
 	],
 	module: {
 		preLoaders: [{
@@ -40,15 +40,15 @@ module.exports = {
 			loaders: ['babel'],
 			include: path.join(__dirname, 'src')
 		}, {
-      test: /\.(jpe?g|png|gif|svg)$/i,
-      loaders: [
-        'url?limit=8192',
-        'img'
-      ],
-      exclude: /node_modules/
-	  }]
+			test: /\.(jpe?g|png|gif|svg)$/i,
+			loaders: [
+				'url?limit=8192',
+				'img'
+			],
+			exclude: /node_modules/
+		}]
 	},
 	postcss: function() {
-  	return [autoprefixer]
-  }
+		return [autoprefixer]
+	}
 };
