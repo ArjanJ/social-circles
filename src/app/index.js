@@ -88,7 +88,11 @@ const App = () => {
 				<button class="controls__button facebook" type="button" data-network="facebook">Facebook</button>
 				<button class="controls__button" type="button" data-network="instagram">Instagram</button>
 				<button class="controls__button" type="button" data-network="twitter">Twitter</button>
-			</div>`;
+			</div>
+			<div class="example-size">100 Million<br>People</div>
+			<footer class="footer">
+				<a href="https://www.arjanjassal.me/">Made by Arjan Jassal</a>
+			</footer>`;
 
 	const mount = () => {
 		document

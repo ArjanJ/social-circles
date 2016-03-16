@@ -8,6 +8,7 @@ $facebook:					#3b5998;
 $instagram:					#3f729b;
 $twitter:						#55acee;
 
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,100,700);
 @import './utils';
 @import './positions';
 
@@ -50,7 +51,6 @@ $twitter:						#55acee;
 }
 
 .earth {
-	$p: &;
 	position: absolute;
 	left: 50%;
 	top: 50%;
@@ -59,7 +59,6 @@ $twitter:						#55acee;
 	overflow: hidden;
 	width: $earth-width;
 	height: $earth-height;
-	-webkit-mask-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAA5JREFUeNpiYGBgAAgwAAAEAAGbA+oJAAAAAElFTkSuQmCC);
 	transform: scale(0);
 	animation: earth-enter 0.5s 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 	animation-fill-mode: both;
@@ -83,7 +82,7 @@ $twitter:						#55acee;
 }
 
 @keyframes earth-enter {
-	to { transform: scale(1) }
+	to { transform: scale(1); }
 }
 
 @keyframes map-rotation {
@@ -91,10 +90,10 @@ $twitter:						#55acee;
 }
 
 @keyframes countries-shift {
-	0% 		{ left: 50% }
-	75.9% { left: 50% }
-	76% 	{ left: 0 }
-	100% 	{ left: 0 }
+	0% 		{ left: 50%; }
+	75.9% { left: 50%; }
+	76% 	{ left: 0; }
+	100% 	{ left: 0; }
 }
 
 .countries {
@@ -181,5 +180,37 @@ $twitter:						#55acee;
 			color: $twitter;
 		}
 
+	}
+}
+
+.example-size {
+	pointer-events: none;
+	position: absolute;
+	top: calc(50% - 50px);
+	right: 5vw;
+	width: 100px;
+	height: 100px;
+	border: 3px solid white;
+	border-radius: 50%;
+	display: flex;
+	align-items: center;
+	text-align: center;
+	justify-content: center;
+	color: white;
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+	background: rgba(black, 0.15);
+}
+
+.footer {
+	position: absolute;
+	bottom: 5vh;
+
+	a {
+		color: white;
+		text-decoration: none;
+		font-size: 1.4rem;
+		font-weight: 300;
 	}
 }
