@@ -1,15 +1,21 @@
 $earth-height: 			525px;
 $earth-width: 			$earth-height;
 $earth-map-width: 	1280px;
-$earth-blue: 				#2e79ba;
+$earth-speed: 			20s;
+$earth-blue: 				#88A6E5;
+$country-color: 		#8D6EC8;
 
-@import "./positions";
+@import './utils';
+@import './positions';
 
-@mixin transform-center() {
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
+* {
+	margin: 0;
+	padding: 0;
+}
+
+.app {
+	min-height: 100vh;
+	background: #252A34;
 }
 
 .earth {
@@ -19,10 +25,13 @@ $earth-blue: 				#2e79ba;
 	top: 50%;
 	margin: (-$earth-height / 2) (0) (0) (-$earth-width / 2);
 	border-radius: 50%;
-	// overflow: hidden;
+	overflow: hidden;
 	width: $earth-width;
 	height: $earth-height;
-	// -webkit-mask-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAA5JREFUeNpiYGBgAAgwAAAEAAGbA+oJAAAAAElFTkSuQmCC);
+	-webkit-mask-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAA5JREFUeNpiYGBgAAgwAAAEAAGbA+oJAAAAAElFTkSuQmCC);
+	transform: scale(0);
+	animation: earth-enter 0.5s .5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+	animation-fill-mode: both;
 
 	&__circle {
 		position: absolute;
@@ -34,23 +43,27 @@ $earth-blue: 				#2e79ba;
 	&__map {
 		width: ($earth-map-width * 2);
 		height: $earth-height;
-		background: url('../img/map.svg') center repeat-x;
+		background: url('../img/map-2.svg') center repeat-x;
 		transform: translate3d(-50%, 0, 0);
-		// animation: map-rotation 20s linear infinite;
+		animation: map-rotation $earth-speed linear infinite;
 		will-change: transform;
 		backface-visibility: hidden;
 	}
+}
 
-	&:hover {
-
-		#{$p}__map {
-			animation-play-state: paused;
-		}
-	}
+@keyframes earth-enter {
+	to { transform: scale(1) }
 }
 
 @keyframes map-rotation {
 	to { transform: translate3d(0, 0, 0); }
+}
+
+@keyframes countries-shift {
+	0% 		{ left: 50% }
+	77.9% { left: 50% }
+	78% 	{ left: 0 }
+	100% 	{ left: 0 }
 }
 
 .countries {
@@ -58,20 +71,21 @@ $earth-blue: 				#2e79ba;
 	position: absolute;
 	top: 0;
 	left: 50%;
+	animation: countries-shift $earth-speed linear infinite;
 }
 
 .country {
 	width: 100px;
 	height: 100px;
-	background: tomato;
+	background: $country-color;
 	border-radius: 50%;
 	position: absolute;
-	box-shadow: 0 2px 4px rgba(black, 0.3);
-	opacity: 0.8;
-	transition: all .2s ease;
+	@include shadow(4);
+	opacity: 0.9;
+	transition: transform .3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .controls {
-	position: absolute;
-	right: 0;
+	// position: absolute;
+	// right: 0;
 }
