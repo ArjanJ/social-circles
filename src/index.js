@@ -22,11 +22,16 @@ const App = () => {
 		Object.assign(state, newState);
 	};
 
-	const buttonClick = (button) => {
-		const network = button.getAttribute('data-network');
-		setState({ network });
-		animateCountry();
-	};
+	const getData = () =>
+		new Promise((resolve, reject) => {
+			Api()
+				.getData()
+				.then((response) => {
+					state.countries = response.data.map(item => Country(item.name, item.networks));
+					resolve(state.countries);
+				})
+				.catch(error => console.error(error));
+		});
 
 	const registerEventListeners = () => {
 		document
@@ -40,10 +45,17 @@ const App = () => {
 
 	const animateCountry = () => {
 		const countries = Array.from(document.querySelectorAll('.country'));
-		state.countries.map((country, i) =>
+		state.countries.forEach((country, i) => {
 			countries[i].style.transform = `scale(
 				${country.getNetwork(state.network).totalUsers / 100000000}
-			)`);
+			)`;
+		});
+	};
+
+	const buttonClick = (button) => {
+		const network = button.getAttribute('data-network');
+		setState({ network });
+		animateCountry();
 	};
 
 	const render = () =>
@@ -56,7 +68,9 @@ const App = () => {
 							`<div
 								id="${country.getName().replace(/\ /g, '-')}"
 								class="country"
-								style="transform: scale(${country.getNetwork(state.network).totalUsers / 100000000})">
+								style="transform: scale(
+									${country.getNetwork(state.network).totalUsers / 100000000}
+								)">
 							</div>`).join('')}
 					</div>
 				</div>
@@ -73,17 +87,6 @@ const App = () => {
 			.querySelector('.app')
 			.innerHTML = render();
 	};
-
-	const getData = () =>
-		new Promise((resolve, reject) => {
-			Api()
-				.getData()
-				.then((response) => {
-					state.countries = response.data.map(item => Country(item.name, item.networks));
-					resolve(state.countries);
-				})
-				.catch(error => console.error(error));
-		});
 
 	const init = () => {
 		registerEventListeners();
