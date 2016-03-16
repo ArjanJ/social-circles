@@ -64,6 +64,9 @@
 				},
 				"instagram": {
 					"totalUsers": 8700000
+				},
+				"twitter": {
+					"totalUsers": 0
 				}
 			}
 		},
@@ -117,6 +120,9 @@
 				},
 				"instagram": {
 					"totalUsers": 5800000
+				},
+				"twitter": {
+					"totalUsers": 0
 				}
 			}
 		},
@@ -128,6 +134,9 @@
 				},
 				"instagram": {
 					"totalUsers": 6600000
+				},
+				"twitter": {
+					"totalUsers": 0
 				}
 			}
 		},
@@ -139,6 +148,9 @@
 				},
 				"instagram": {
 					"totalUsers": 8300000
+				},
+				"twitter": {
+					"totalUsers": 0
 				}
 			}
 		},
@@ -192,6 +204,9 @@
 				},
 				"instagram": {
 					"totalUsers": 4700000
+				},
+				"twitter": {
+					"totalUsers": 0
 				}
 			}
 		},
@@ -200,6 +215,12 @@
 			"networks": {
 				"facebook": {
 					"totalUsers": 17322000
+				},
+				"instagram": {
+					"totalUsers": 0
+				},
+				"twitter": {
+					"totalUsers": 0
 				}
 			}
 		},
@@ -250,6 +271,9 @@
 			"networks": {
 				"facebook": {
 					"totalUsers": 12173540
+				},
+				"instagram": {
+					"totalUsers": 0
 				},
 				"twitter": {
 					"totalUsers": 3202782
