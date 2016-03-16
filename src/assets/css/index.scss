@@ -4,17 +4,20 @@ $earth-map-width: 	1280px;
 $earth-speed: 			20s;
 $earth-blue: 				#88A6E5;
 $country-color: 		#8D6EC8;
+$facebook:					#3b5998;
+$instagram:					#3f729b;
+$twitter:						#55acee;
 
 @import './utils';
 @import './positions';
 
 * {
+	box-sizing: border-box;
 	margin: 0;
 	padding: 0;
 }
 
 :root {
-	box-sizing: border-box;
   font-family: 'Roboto', sans-serif;
   font-size: 0.625rem;
   line-height: 1.6;
@@ -25,14 +28,16 @@ $country-color: 		#8D6EC8;
 }
 
 .app {
+	@include cf;
 	min-height: 100vh;
-	padding: 5vh 5vw;
+	padding: 5vh 5vw 0;
 	background: #252A34 url('//unsplash.it/1920/1080?image=825') center/cover;
 	position: relative;
 	z-index: 1;
 
 	&:before {
 		content: "";
+		display: block;
 		position: absolute;
 		z-index: -1;
 		top: 0;
@@ -109,11 +114,15 @@ $country-color: 		#8D6EC8;
 	@include shadow(4);
 	opacity: 0.9;
 	transition: transform .3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+	&.facebook { background: $facebook }
+	&.instagram { background: $instagram }
+	&.twitter { background: $twitter }
 }
 
 .title {
-	margin: 2.4rem 0;
-	font-size: 3rem;
+	margin: 0 0 2.4rem 0;
+	font-size: 3.2rem;
 	color: white;
 	text-align: center;
 	letter-spacing: 4px;
@@ -141,20 +150,36 @@ $country-color: 		#8D6EC8;
 		font-weight: 700;
 		letter-spacing: 2px;
 		color: white;
-		background: none;
-		@include shadow(2);
+		background: rgba(black, 0.15);
+		transition: all .1s ease-out;
+		@include shadow(1);
 
 		&:focus {
 			outline: none;
+		}
+
+		&:hover {
+			transform: scale(1.05);
 		}
 
 		&:last-child {
 			margin-bottom: 0;
 		}
 
-		&--active {
-			border-color: $earth-blue;
-			color: $earth-blue;
+		&.facebook {
+			border-color: $facebook;
+			color: $facebook;
 		}
+
+		&.instagram {
+			border-color: $instagram;
+			color: $instagram;
+		}
+
+		&.twitter {
+			border-color: $twitter;
+			color: $twitter;
+		}
+
 	}
 }
