@@ -1,7 +1,7 @@
 {
-  "name": "the-social-media-invasion",
-  "version": "0.0.1",
-  "description": "Interactive infographic visualizing the growth of social media.",
+  "name": "social-circles",
+  "version": "1.0.0",
+  "description": "Interactive infographic visualizing the size of different social media networks.",
   "main": "webpack.config.js",
   "scripts": {
     "build": "webpack --config webpack.config.prod.js",
