@@ -43,7 +43,7 @@ $country-color: 		#8D6EC8;
 	&__map {
 		width: ($earth-map-width * 2);
 		height: $earth-height;
-		background: url('../img/map-2.svg') center repeat-x;
+		background: url('../img/map.svg') center repeat-x;
 		transform: translate3d(-50%, 0, 0);
 		animation: map-rotation $earth-speed linear infinite;
 		will-change: transform;
