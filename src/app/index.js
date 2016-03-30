@@ -47,13 +47,13 @@ const App = () => {
 	const animateCountry = () => {
 		const countries = Array.from(document.querySelectorAll('.country'));
 		state.countries.forEach((country, i) => {
-			countries[i].style.transform = `scale(
-				${country.getNetwork(state.network).totalUsers / 100000000}
-			)`;
+			countries[i].style.transform = scaleValue(country);
 			countries[i].classList.remove('facebook', 'instagram', 'twitter');
 			countries[i].classList.add(state.network);
 		});
 	};
+
+	const scaleValue = x => `scale(${x.getNetwork(state.network).totalUsers / 100000000})`;
 
 	const buttonClick = (button) => {
 		const network = button.getAttribute('data-network');
@@ -77,9 +77,7 @@ const App = () => {
 							`<div
 								id="${country.getName().replace(/\ /g, '-')}"
 								class="country ${state.network}"
-								style="transform: scale(
-									${country.getNetwork(state.network).totalUsers / 100000000}
-								)">
+								style="transform: ${scaleValue(country)}">
 							</div>`).join('')}
 					</div>
 				</div>
