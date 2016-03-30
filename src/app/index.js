@@ -18,10 +18,19 @@ const App = () => {
 		network: 'facebook'
 	};
 
+	/**
+	 * setState() updates the state object
+	 *
+	 * @param {Object} newState the object holding the updated state
+	 */
 	const setState = (newState) => {
 		Object.assign(state, newState);
 	};
 
+	/**
+	 * getData() promise that gets the country data from the API
+	 * adds the response data to the state object
+	 */
 	const getData = () =>
 		new Promise((resolve, reject) => {
 			Api()
@@ -44,6 +53,10 @@ const App = () => {
 			});
 	};
 
+	/**
+	 * animateCountry() updates the DOM elements
+	 * adds and removes the neccessary class names from DOM elements
+	 */
 	const animateCountry = () => {
 		const countries = Array.from(document.querySelectorAll('.country'));
 		state.countries.forEach((country, i) => {
@@ -53,8 +66,20 @@ const App = () => {
 		});
 	};
 
+	/**
+	 * scaleValue() returns the transform scale value for the DOM element
+	 *
+	 * @param {Object} x the country object of the DOM element you want to update
+	 * @return {String} the transform scale value
+	 */
 	const scaleValue = x => `scale(${x.getNetwork(state.network).totalUsers / 100000000})`;
 
+	/**
+	 * buttonClick() triggers the animation of the country elements
+	 * updates the class names on the buttons
+	 *
+	 * @param {Element} button the button element that was clicked
+	 */
 	const buttonClick = (button) => {
 		const network = button.getAttribute('data-network');
 		const buttons = Array.from(document.querySelectorAll('.controls__button'));
@@ -89,7 +114,7 @@ const App = () => {
 			</div>
 			<div class="example-size">100 Million<br>People</div>
 			<footer class="footer">
-				<a href="https://www.arjanjassal.me/">Made by Arjan Jassal</a>
+				<a href="https://www.arjanjassal.me/">Designed &amp; Developed by Arjan Jassal</a>
 			</footer>`;
 
 	const mount = () => {
