@@ -12,10 +12,11 @@ import Api from './Api';
 import Country from './Country';
 
 // App Module
-const App = () => {
+const App = (() => {
 	const state = {
 		countries: [],
-		network: 'facebook'
+		network: '',
+		totalUsers: 0
 	};
 
 	/**
@@ -37,7 +38,9 @@ const App = () => {
 				.getData()
 				.then((response) => {
 					const countries = response.data.map(item => Country(item.name, item.networks));
-					setState({ countries });
+					const network = 'facebook';
+					const totalUsers = countries.reduce((sum, country) => sum + country.getNetwork(network).totalUsers, 0);
+					setState({ countries, network, totalUsers });
 					resolve(state.countries);
 				})
 				.catch(error => console.error(error));
@@ -54,10 +57,10 @@ const App = () => {
 	};
 
 	/**
-	 * animateCountry() updates the DOM elements
+	 * updateCountries() updates the country DOM elements
 	 * adds and removes the neccessary class names from DOM elements
 	 */
-	const animateCountry = () => {
+	const updateCountries = () => {
 		const countries = Array.from(document.querySelectorAll('.country'));
 		state.countries.forEach((country, i) => {
 			countries[i].style.transform = scaleValue(country);
@@ -75,21 +78,32 @@ const App = () => {
 	const scaleValue = x => `scale(${x.getNetwork(state.network).totalUsers / 100000000})`;
 
 	/**
-	 * buttonClick() triggers the animation of the country elements
-	 * updates the class names on the buttons
+	 * buttonClick() updates the state of the app
 	 *
 	 * @param {Element} button the button element that was clicked
 	 */
 	const buttonClick = (button) => {
 		const network = button.getAttribute('data-network');
+		const totalUsers = state.countries.reduce((sum, country) => sum + country.getNetwork(network).totalUsers, 0);
+
+		setState({ network, totalUsers });
+
+		updateCountries();
+		updateButtons(button);
+		updateInfoText();
+	};
+
+	const updateButtons = (button) => {
 		const buttons = Array.from(document.querySelectorAll('.controls__button'));
-
-		setState({ network });
-
 		buttons.map(x => x.classList.remove('facebook', 'instagram', 'twitter'));
 		button.classList.add('controls__button--active', state.network);
+	};
 
-		animateCountry();
+	const updateInfoText = () => {
+		const networkName = document.querySelector('[data-active-network]');
+		const networkNumber = document.querySelector('[data-active-network-number]');
+		networkName.innerHTML = state.network;
+		networkNumber.innerHTML = state.totalUsers;
 	};
 
 	const render = () =>
@@ -114,6 +128,7 @@ const App = () => {
 			</div>
 			<div class="example-size">100 Million<br>People</div>
 			<footer class="footer">
+				<p class="info"><span data-active-network>${state.network}</span> has over <span data-active-network-number>${state.totalUsers}</span> users!</p>
 				<a href="https://www.arjanjassal.me/">Designed &amp; Developed by Arjan Jassal</a>
 			</footer>`;
 
@@ -133,8 +148,8 @@ const App = () => {
 	return {
 		init
 	};
-};
+})();
 
 document.addEventListener('DOMContentLoaded', () => {
-	App().init();
+	App.init();
 });
