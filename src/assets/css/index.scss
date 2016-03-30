@@ -35,6 +35,8 @@ $twitter:						#55acee;
 	background: #252A34 url('//unsplash.it/1920/1080?image=825') center/cover;
 	position: relative;
 	z-index: 1;
+	color: white;
+	font-size: 1.4rem;
 
 	&:before {
 		content: "";
@@ -71,13 +73,13 @@ $twitter:						#55acee;
 	}
 
 	&__map {
+		display: block;
 		width: ($earth-map-width * 2);
 		height: $earth-height;
 		background: url('../img/map.svg') center repeat-x;
 		transform: translate3d(-50%, 0, 0);
 		animation: map-rotation $earth-speed linear infinite;
 		will-change: transform;
-		backface-visibility: hidden;
 	}
 }
 
@@ -198,9 +200,23 @@ $twitter:						#55acee;
 	justify-content: center;
 	color: white;
 	font-weight: 700;
+	font-size: 1rem;
 	text-transform: uppercase;
 	letter-spacing: 1px;
 	background: rgba(black, 0.15);
+}
+
+.info {
+	margin-bottom: 2.5vh;
+	font-weight: 300;
+
+	&:first-letter {
+		text-transform: uppercase;
+	}
+
+	span {
+		font-weight: 700;
+	}
 }
 
 .footer {
