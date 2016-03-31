@@ -39,22 +39,21 @@ const App = (() => {
 				.then((response) => {
 					const countries = response.data.map(item => Country(item.name, item.networks));
 					const network = 'facebook';
-					const totalUsers = countries.reduce((sum, country) => sum + country.getNetwork(network).totalUsers, 0);
+					const totalUsers = countries.reduce((sum, country) =>
+						sum + country.getNetwork(network).totalUsers, 0);
 					setState({ countries, network, totalUsers });
 					resolve(state.countries);
 				})
 				.catch(error => console.error(error));
 		});
 
-	const registerEventListeners = () => {
-		document
-			.querySelector('.app')
-			.addEventListener('click', (event) => {
-				if (event.target && event.target.matches('button.controls__button')) {
-					buttonClick(event.target);
-				}
-			});
-	};
+	/**
+	 * scaleValue() returns the transform scale value for the DOM element
+	 *
+	 * @param {Object} x the country object of the DOM element you want to update
+	 * @return {String} the transform scale value
+	 */
+	const scaleValue = x => `scale(${x.getNetwork(state.network).totalUsers / 100000000})`;
 
 	/**
 	 * updateCountries() updates the country DOM elements
@@ -69,30 +68,6 @@ const App = (() => {
 		});
 	};
 
-	/**
-	 * scaleValue() returns the transform scale value for the DOM element
-	 *
-	 * @param {Object} x the country object of the DOM element you want to update
-	 * @return {String} the transform scale value
-	 */
-	const scaleValue = x => `scale(${x.getNetwork(state.network).totalUsers / 100000000})`;
-
-	/**
-	 * buttonClick() updates the state of the app
-	 *
-	 * @param {Element} button the button element that was clicked
-	 */
-	const buttonClick = (button) => {
-		const network = button.getAttribute('data-network');
-		const totalUsers = state.countries.reduce((sum, country) => sum + country.getNetwork(network).totalUsers, 0);
-
-		setState({ network, totalUsers });
-
-		updateCountries();
-		updateButtons(button);
-		updateInfoText();
-	};
-
 	const updateButtons = (button) => {
 		const buttons = Array.from(document.querySelectorAll('.controls__button'));
 		buttons.map(x => x.classList.remove('facebook', 'instagram', 'twitter'));
@@ -104,6 +79,33 @@ const App = (() => {
 		const networkNumber = document.querySelector('[data-active-network-number]');
 		networkName.innerHTML = state.network;
 		networkNumber.innerHTML = state.totalUsers;
+	};
+
+	/**
+	 * buttonClick() updates the state of the app
+	 *
+	 * @param {Element} button the button element that was clicked
+	 */
+	const buttonClick = (button) => {
+		const network = button.getAttribute('data-network');
+		const totalUsers = state.countries.reduce((sum, country) =>
+			sum + country.getNetwork(network).totalUsers, 0);
+
+		setState({ network, totalUsers });
+
+		updateCountries();
+		updateButtons(button);
+		updateInfoText();
+	};
+
+	const registerEventListeners = () => {
+		document
+			.querySelector('.app')
+			.addEventListener('click', (event) => {
+				if (event.target && event.target.matches('button.controls__button')) {
+					buttonClick(event.target);
+				}
+			});
 	};
 
 	const render = () =>
@@ -122,13 +124,17 @@ const App = (() => {
 				</div>
 			</div>
 			<div class="controls">
-				<button class="controls__button facebook" type="button" data-network="facebook">Facebook</button>
+				<button class="controls__button facebook" type="button"
+					data-network="facebook">Facebook</button>
 				<button class="controls__button" type="button" data-network="instagram">Instagram</button>
 				<button class="controls__button" type="button" data-network="twitter">Twitter</button>
 			</div>
 			<div class="example-size">100 Million<br>People</div>
 			<footer class="footer">
-				<p class="info"><span data-active-network>${state.network}</span> has over <span data-active-network-number>${state.totalUsers}</span> users!</p>
+				<p class="info">
+					<span data-active-network>${state.network}</span> has over
+					<span data-active-network-number>${state.totalUsers}</span> users!
+				</p>
 				<a href="https://www.arjanjassal.me/">Designed &amp; Developed by Arjan Jassal</a>
 			</footer>`;
 
