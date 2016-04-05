@@ -53,14 +53,14 @@ $twitter:						#55acee;
 }
 
 .earth {
-	position: absolute;
-	left: 50%;
-	top: 50%;
-	margin: (-$earth-height / 2) (0) (0) (-$earth-width / 2);
+	margin: 0 auto;
+	position: relative;
 	border-radius: 50%;
 	overflow: hidden;
-	width: $earth-width;
-	height: $earth-height;
+	// width: $earth-width;
+	// height: $earth-height;
+	width: 70vw;
+	height: 70vw;
 	transform: scale(0);
 	animation: earth-enter 0.5s 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 	animation-fill-mode: both;
@@ -80,6 +80,17 @@ $twitter:						#55acee;
 		transform: translate3d(-50%, 0, 0);
 		animation: map-rotation $earth-speed linear infinite;
 		will-change: transform;
+	}
+
+	@media (min-width: 768px) {
+		position: absolute;
+		left: 50%;
+		top: 50%;
+		width: $earth-width;
+		height: $earth-height;
+		margin: (-$earth-height / 2) (0) (0) (-$earth-width / 2);
+		animation: earth-enter 0.5s 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+		animation-fill-mode: both;
 	}
 }
 
@@ -132,20 +143,20 @@ $twitter:						#55acee;
 }
 
 .controls {
-	position: absolute;
-	top: 0;
-	height: 100vh;
+	width: 100%;
+	margin-top: 45px;
 	display: flex;
-	flex-flow: column wrap;
+	flex-flow: row wrap;
 	justify-content: center;
+	text-align: center;
 
 	&__button {
 		appearance: none;
 		cursor: pointer;
 		display: block;
-		width: 130px;
-		margin-bottom: 20px;
-		padding: 10px 20px;
+		margin: 4px;
+		font-size: 0.9rem;
+		padding: 10px 15px;
 		border: 3px solid white;
 		text-transform: uppercase;
 		font-weight: 700;
@@ -163,10 +174,6 @@ $twitter:						#55acee;
 			transform: scale(1.05);
 		}
 
-		&:last-child {
-			margin-bottom: 0;
-		}
-
 		&.facebook {
 			border-color: $facebook;
 			color: $facebook;
@@ -181,29 +188,54 @@ $twitter:						#55acee;
 			border-color: $twitter;
 			color: $twitter;
 		}
+	}
 
+	@media (min-width: 768px) {
+		margin-top: 0;
+		position: absolute;
+		top: 0;
+		height: 100vh;
+		display: flex;
+		flex-flow: column wrap;
+		justify-content: center;
+
+		&__button {
+			width: 130px;
+			margin-bottom: 20px;
+			margin-left: 0;
+			margin-right: 0;
+			font-size: 1rem;
+
+			&:last-child {
+				margin-bottom: 0;
+			}
+		}
 	}
 }
 
 .example-size {
-	pointer-events: none;
-	position: absolute;
-	top: calc(50% - 50px);
-	right: 5vw;
-	width: 100px;
-	height: 100px;
-	border: 3px solid white;
-	border-radius: 50%;
-	display: flex;
-	align-items: center;
-	text-align: center;
-	justify-content: center;
-	color: white;
-	font-weight: 700;
-	font-size: 1rem;
-	text-transform: uppercase;
-	letter-spacing: 1px;
-	background: rgba(black, 0.15);
+	display: none;
+
+	@media (min-width: 768px) {
+		pointer-events: none;
+		position: absolute;
+		top: calc(50% - 50px);
+		right: 5vw;
+		width: 100px;
+		height: 100px;
+		border: 3px solid white;
+		border-radius: 50%;
+		display: flex;
+		align-items: center;
+		text-align: center;
+		justify-content: center;
+		color: white;
+		font-weight: 700;
+		font-size: 1rem;
+		text-transform: uppercase;
+		letter-spacing: 1px;
+		background: rgba(black, 0.15);
+	}
 }
 
 .info {
