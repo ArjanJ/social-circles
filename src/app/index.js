@@ -33,19 +33,16 @@ const App = (() => {
 	 * adds the response data to the state object
 	 */
 	const getData = () =>
-		new Promise((resolve, reject) => {
-			Api()
-				.getData()
-				.then((response) => {
-					const countries = response.data.map(item => Country(item.name, item.networks));
-					const network = 'facebook';
-					const totalUsers = countries.reduce((sum, country) =>
-						sum + country.getNetwork(network).totalUsers, 0);
-					setState({ countries, network, totalUsers });
-					resolve(state.countries);
-				})
-				.catch(error => console.error(error));
-		});
+		Api()
+			.getData()
+			.then((response) => {
+				const countries = response.data.map(item => Country(item.name, item.networks));
+				const network = 'facebook';
+				const totalUsers = countries.reduce((sum, country) =>
+					sum + country.getNetwork(network).totalUsers, 0);
+				setState({ countries, network, totalUsers });
+			})
+			.catch(error => console.error(error));
 
 	/**
 	 * scaleValue() returns the transform scale value for the DOM element
